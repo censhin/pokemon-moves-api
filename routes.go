@@ -1,9 +1,14 @@
 package main
 
 import (
-	"net/http"
+	"github.com/gorilla/mux"
 )
 
-func InitRoutes() {
-	http.HandleFunc("/moves", MovesResource)
+func InitRoutes() (*mux.Router) {
+	router := mux.NewRouter()
+
+	router.HandleFunc("/moves", MovesResource)
+	router.HandleFunc("/moves/{id}", MoveResource)
+
+	return router
 }

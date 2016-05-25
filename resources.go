@@ -2,15 +2,19 @@ package main
 
 import (
 	"net/http"
-	"log"
+	"encoding/json"
+	"github.com/gorilla/mux"
 )
 
 func MovesResource(w http.ResponseWriter, r *http.Request) {
-	b, err := MovesService()
+	res := MovesService()
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(res)
+}
 
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		w.Write(b)
-	}
+func MoveResource(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	res := MoveService(vars["id"])
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(res)
 }

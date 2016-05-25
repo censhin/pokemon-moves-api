@@ -1,12 +1,11 @@
 package main
 
 import (
-    "net/http"
-    "log"
+	"log"
+	"net/http"
 )
 
 func main() {
-    InitRoutes()
-    http.ListenAndServe(":8001", nil)
-    log.Println("Starting server on port 8001.")
+	log.Println("Starting server on port 8001.")
+	http.ListenAndServe(":8001", InitRoutes())
 }

@@ -6,22 +6,26 @@ import (
 	"log"
 )
 
-type Move struct {
-	Name string
-	Number int
-	Type string
-	Category string
-	Contest string
-	Pp int
-	Power int
-	Accuracy int
-	Generation string
-	Tm []string
-	Hm []string
-	Tutor bool
+type Moves struct{
+	Moves	[]Move `json:"moves"`
 }
 
-func MovesDao() ([]Move) {
+type Move struct {
+	Name       string   `json:"name"`
+	Number     int      `json:"number"`
+	Type       string   `json:"type"`
+	Category   string   `json:"category"`
+	Contest    string   `json:"contest"`
+	Pp         int      `json:"pp"`
+	Power      int      `json:"power"`
+	Accuracy   int      `json:"accuracy"`
+	Generation string   `json:"generation"`
+	Tm         []string `json:"tm"`
+	Hm         []string `json:"hm"`
+	Tutor      bool     `json:"tutor"`
+}
+
+func MovesDao() Moves {
 	session, err := mgo.Dial("localhost:27017")
 	if err != nil {
 		panic(err)
@@ -37,10 +41,10 @@ func MovesDao() ([]Move) {
 		log.Fatal(err)
 	}
 
-	return result
+	return Moves{result}
 }
 
-func MoveDao(name string) (Move) {
+func MoveDao(name string) Move {
 	session, err := mgo.Dial("localhost:27017")
 	if err != nil {
 		panic(err)
